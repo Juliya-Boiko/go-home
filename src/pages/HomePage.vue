@@ -63,8 +63,6 @@ export default {
       if (city && price >= 0) {
         this.filters.city = city;
         this.filters.price = price;
-        // console.log('city--->', city);
-        // console.log('price--->', price);
       }
     },
     filterByName(aparts) {
