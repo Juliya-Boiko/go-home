@@ -1,14 +1,18 @@
 <template>
   <PageContainer>
     <MainContainer>
-      <FiltersForm @submit="filter"/>
-      <p v-if="!filteredApartments.length">Нічого не знайдено</p>
-      <ApartmentsList v-else :items="filteredApartments" />
+      <radar-spinner class="loader-radar" v-if="loading" :animation-duration="2000" :size="60" color="#FF662D" />
+      <template v-if="!loading">
+        <FiltersForm @submit="filter"/>
+        <p v-if="!filteredApartments.length">Нічого не знайдено</p>
+        <ApartmentsList v-else :items="filteredApartments" />
+      </template>
     </MainContainer>
   </PageContainer>
 </template>
 
 <script>
+import { RadarSpinner } from 'epic-spinners';
 import PageContainer from '@/components/shared/PageContainer.vue';
 import MainContainer from '@/components/shared/MainContainer.vue';
 import FiltersForm from '@/components/filters/FiltersForm.vue';
@@ -21,10 +25,12 @@ export default {
     PageContainer,
     MainContainer,
     FiltersForm,
-    ApartmentsList
+    ApartmentsList,
+    RadarSpinner,
   },
   data() {
     return {
+      loading: false,
       apartments: [],
       filters: {
         city: '',
@@ -34,10 +40,17 @@ export default {
   },
   async created() {
     try {
+      this.loading = true;
       const data = await getApartments();
       this.apartments = data;
+      this.loading = false;
     } catch (error) {
       console.log(error);
+      this.$notify({
+        type: 'error',
+        title: 'Error',
+        text: error.message,
+      });
     }
   },
   computed: {
@@ -71,5 +84,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+.loader-radar {
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%);
+}
 </style>

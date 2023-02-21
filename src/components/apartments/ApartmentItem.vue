@@ -6,6 +6,7 @@
       <div class="apartment-item__rating">
         <StarRating :rating="rating" />
       </div>
+      <router-link :to="{ name: 'apartments', params: { id } }" class="apartment-item__link"></router-link>
       <p class="apartment-item__price">UAH {{ price }} per night</p>
     </div>
   </div>
@@ -96,6 +97,14 @@ export default {
   &__price {
     font-size: $fs-normal;
     font-weight: $fw-bold;
+  }
+
+  &__link {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
   }
 }
 </style>
