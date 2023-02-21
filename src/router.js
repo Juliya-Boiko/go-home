@@ -1,10 +1,12 @@
 import { createRouter, createWebHistory } from 'vue-router';
+import store from './store';
 
 const HomePage = () => import('./pages/HomePage.vue');
 const ApartmentPage = () => import('./pages/ApartmentPage.vue');
 const LoginPage = () => import('./pages/LoginPage.vue');
 const RegisterPage = () => import('./pages/RegisterPage.vue');
 const OrdersPage = () => import('./pages/OrdersPage.vue');
+const ErrorPage = () => import('./pages/404Page.vue');
 
 const routes = [
   {
@@ -16,17 +18,17 @@ const routes = [
     path: '/login',
     name: 'login',
     component: LoginPage,
-    // meta: {
-    //   hideForAuth: true,
-    // },
+    meta: {
+      hideForAuth: true,
+    },
   },
   {
     path: '/register',
     name: 'register',
     component: RegisterPage,
-    // meta: {
-    //   hideForAuth: true,
-    // },
+    meta: {
+      hideForAuth: true,
+    },
   },
   {
     path: '/apartments/:id',
@@ -41,16 +43,34 @@ const routes = [
       requiresAuth: true,
     },
   },
-  // {
-  //   path: '/:pathMatch(.*)*',
-  //   name: 'error-page',
-  //   component: ErrorPage,
-  // }
+  {
+    path: '/:pathMatch(.*)*',
+    name: 'error-page',
+    component: ErrorPage,
+  }
 ];
 
 const router = createRouter({
   history: createWebHistory(),
   routes,
+});
+
+router.beforeEach((to, from, next) => {
+  const isLoggedIn = store.getters['auth/isLoggedIn'];
+
+  if (to.matched.some((record) => record.meta.requiresAuth)) {
+    if (!isLoggedIn) {
+      next({ name: 'login' });
+    }
+  }
+
+  if (to.matched.some((record) => record.meta.hideForAuth)) {
+    if (isLoggedIn) {
+      next({ name: 'homepage' });
+    }
+  }
+
+  next();
 });
 
 export default router;

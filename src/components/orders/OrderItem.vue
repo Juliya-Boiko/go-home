@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="order-item-container">
     <radar-spinner class="loader-radar" v-if="loading" :animation-duration="2000" :size="60" color="#FF662D" />
     <div v-else class="order-item">
       <img src="../../assets/images/default-apartment-img.jpg" alt="{{order.title}}" class="order-item__img">
@@ -56,9 +56,15 @@ export default {
 <style lang="scss" scoped>
 @import '../../assets/scss/variables.scss';
 
+.order-item-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 0 20px 0;
+
+}
 .order-item {
   display: flex;
-  margin: 0 0 20px 0;
 
   &__img {
     width: 30%;

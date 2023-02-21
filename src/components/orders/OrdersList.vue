@@ -1,6 +1,6 @@
 <template>
   <div>
-    <p v-if="!items.length">Empty orders</p>
+    <p v-if="!items.length" class="orders__text">You dont have booked apartments</p>
     <ul>
       <OrderItem v-for="item in items" :key="item" :id="item"/>
     </ul>
@@ -25,5 +25,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+  .orders__text {
+    text-align: center;
+  }
 </style>

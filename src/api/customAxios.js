@@ -55,7 +55,6 @@ export const getOrders = async () => {
     return [];
   }
   return data.items;
-  //console.log('data-->', data);
 }
 
 export const addOrder = async (id) => {
@@ -63,5 +62,4 @@ export const addOrder = async (id) => {
   token.set(currToken);
   await axios.post('/orders', { apartmentId: id }).then(response => response.data);
   return true;
-  //console.log('addOrder data-->', data);
 }
