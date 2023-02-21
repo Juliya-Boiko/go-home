@@ -1,7 +1,7 @@
 <template>
   <PageContainer>
     <section class="error">
-      <h1 class="error__title">Page not found 404</h1>
+      <h1 class="error__title">GO - HOME (BOOK APARTMENTS)</h1>
     </section>
   </PageContainer>
 </template>
