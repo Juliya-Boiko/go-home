@@ -4,6 +4,15 @@ export const saveStorage = (key, data) => {
 
 export const getStorage = (key) => {
   const data = JSON.parse(localStorage.getItem(key));
+  if (!data) {
+    return {
+      user: {
+        name: '',
+        token: '',
+        userId: ''
+      }
+    };
+  }
   return data;
 };
 

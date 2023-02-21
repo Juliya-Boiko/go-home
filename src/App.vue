@@ -11,9 +11,6 @@
 import HeaderContainer from './components/header/HeaderContainer.vue';
 import FooterContainer from './components/footer/FooterContainer.vue';
 import NotificationSet from './components/notifications/NotificationSet.vue';
-//import { mapGetters } from 'vuex';
-import { clearStorage } from './helpers/localStorage';
-
 export default {
   name: 'App',
   components: {
@@ -21,12 +18,6 @@ export default {
     FooterContainer,
     NotificationSet
   },
-  mounted() {
-    clearStorage();
-  }
-  // mounted() {
-  //   console.log(this.isLoggedIn);
-  // },
 }
 </script>
 
